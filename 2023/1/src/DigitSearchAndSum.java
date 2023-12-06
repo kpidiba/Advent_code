@@ -5,35 +5,37 @@ public class DigitSearchAndSum {
     private String input;
     private List<String> stringList;
 
-    //NOTE: Debug constructor help me 
-    DigitSearchAndSum(String input) {
-        this.input = input; // set the input string (String input) to the instance variable inpu
-    }
+    // NOTE: Debug constructor help me
+    // DigitSearchAndSum(String input) {
+    //     this.input = input; // set the input string (String input) to the instance variable inpu
+    // }
 
     DigitSearchAndSum(List<String> stringList) {
         this.stringList = stringList; // set the input string (String input) to the instance variable inpu
     }
 
-    //NOTE: Debug calculate help me
-    public void calculate() {
-        int digit = 0;
-        if (checkOneDigit(input)) {
-            int value = findFirstDigit(input);
-            digit = Integer.parseInt(value + "" + value);
-        } else {
-            digit = Integer.parseInt(findFirstDigit(input) + "" + findLastDigit(input));
-        }
-        sumResult = digit;
-    }
+    // NOTE: Debug calculate help me
+    // public void calculate() {
+    //     int digit = 0;
+    //     if (checkOneDigit(input)) {
+    //         int value = findFirstDigit(input);
+    //         digit = Integer.parseInt(value + "" + value);
+    //     } else {
+    //         digit = Integer.parseInt(findFirstDigit(input) + "" + findLastDigit(input));
+    //     }
+    //     sumResult = digit;
+    // }
 
     public void calculates() {
-        for (String str : stringList) {
-            if (checkOneDigit(str)) {
-                int value = findFirstDigit(str);
-                sumResult += Integer.parseInt(value + "" + value);
-            } else {
-                sumResult += Integer.parseInt(findFirstDigit(str) + "" + findLastDigit(str));
-            }
+        this.stringList.forEach(this::calculateByLine);
+    }
+
+    public void calculateByLine(String str) {
+        if (checkOneDigit(str)) {
+            int value = findFirstDigit(str);
+            sumResult += Integer.parseInt(value + "" + value);
+        } else {
+            sumResult += Integer.parseInt(findFirstDigit(str) + "" + findLastDigit(str));
         }
     }
 
