@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BagGame {
     private List<String> datas;
@@ -16,43 +17,35 @@ public class BagGame {
     }
 
     void gameReadLine(String text) {
-        System.out.println("id: "+id);
+        System.out.println("id: " + id);
         if (gameIsValid(text)) {
-            System.out.println("---VALID ID: ----"+id);
+            System.out.println("---VALID ID: ----" + id);
             result += id;
         }
         id++;
     }
 
     boolean gameIsValid(String value) {
-        List<String> datas = List.of(value.replaceAll("Game \\d+: ", ""));
-        // System.out.println(Arrays.toString(datas.toArray()));
+        List<String> datas = Arrays.stream(value.replaceAll("Game \\d+: ", "")
+                .split("; "))
+                .flatMap(pair -> Arrays.stream(pair.split(", ")))
+                .collect(Collectors.toList());
         return datas.stream().allMatch(this::checkCounts);
     }
 
-    public boolean checkCounts(String substring) {
-        // Initialize counts for each color
-
-
-        // Split the substring into individual color-count pairs
-        String[] colorCounts = substring.split("; ");
-        // String[] colorsCounts = List.of(colorCounts.)
+    public boolean checkCounts(String pair) {
 
         // Iterate over each color-count pair
-        for (String pair : colorCounts) {
-            String[] parts = pair.split(", ");
-            for (String a : parts) {
-                String[] splits = a.split(" ");
-                int count = Integer.parseInt(splits[0]);
-                String color = splits[1];
-                // Update counts based on the color
-                if(count >  Color.valueOf(color.toUpperCase()).getLimit())
-                    return false;
-                
-            }
-        }
-
+        List<String> parts = Arrays.stream(pair.split(", "))
+                .flatMap(value -> Arrays.stream(value.split(" ")))
+                .collect(Collectors.toList());
+        int count = Integer.parseInt(parts.get(0));
+        String color = parts.get(1);
+        // Update counts based on the color
+        if (count > Color.valueOf(color.toUpperCase()).getLimit())
+            return false;
         return true;
+
     }
 
 }
