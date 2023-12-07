@@ -2,7 +2,7 @@ import java.util.List;
 
 public class DigitSearchAndSum {
     private int sumResult = 0; // variable to store the sum result
-    private String input;
+    // private String input;
     private List<String> stringList;
 
     // NOTE: Debug constructor help me
